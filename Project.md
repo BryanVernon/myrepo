@@ -289,7 +289,7 @@ summary(NBA_Stats1)
 ggplot(NBA_Stats1, aes(x=POS, y=PPG, fill = Salary))+geom_bar(stat="identity")+ ggtitle("Different positions and how many points per game they score shaded by salary")
 ```
 
-<img src="Project_files/figure-gfm/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+![image](https://user-images.githubusercontent.com/68762408/117606851-6070b100-b120-11eb-9541-65ef3c65536c.png)
 
 #### This shows a nice graph of the different positions and how many points per game they score and it is also shaded in by salary. We can see that the tallest column has a dark band about three ticks down and that is probably going to be our most valuable player because they score the most points with the least salary.
 
@@ -298,8 +298,7 @@ ggplot(NBA_Stats1, aes(x=POS, y=PPG, fill = Salary))+geom_bar(stat="identity")+ 
 ggplot(NBA_Stats1, aes(PPG, Salary)) + ggtitle("Correlation between salary and points per game by position") + xlab('Points per Game') + ylab("Salary")+geom_point(col = 'Blue')+geom_smooth(method= lm, aes(color=POS))
 ```
 
-<img src="Project_files/figure-gfm/unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
-
+![image](https://user-images.githubusercontent.com/68762408/117606898-7aaa8f00-b120-11eb-98be-9687f9f5c408.png)
 #### This plot is one that tracks the relationship between salary and points per game by position
 
 ``` r
@@ -311,8 +310,7 @@ plot <- NBA_Stats1 %>% select_if(is.numeric)
 cor(plot, use = "pairwise.complete.obs")%>% as.data.frame %>% rownames_to_column %>% pivot_longer(-1, names_to = "other_var", values_to = "correlation") %>% ggplot(aes(rowname,other_var,fill = correlation)) +geom_tile()+scale_fill_gradient2(low = "blue", mid = "white", high = "yellow")+geom_text(aes(label=round(correlation,2)), color = "brown", size = 4) + labs(title = "Correlation matrix for NBA Statistics", x = "variable 1", y = "variable 2")
 ```
 
-<img src="Project_files/figure-gfm/unnamed-chunk-14-1.png" style="display: block; margin: auto;" />
-
+![image](https://user-images.githubusercontent.com/68762408/117606915-81390680-b120-11eb-840c-d1057eba588b.png)
 #### This is a heatmap that shows the correlation between all the numeric variable in the dataset.
 
 #### Part 5: Next, we will use cluster data to analyze the means and standard deviations of points per game and salary.
@@ -325,8 +323,7 @@ NBA_Stats2 <- NBA_Stats1 %>% mutate(dist1 = sqrt((PPG - centers$PPG[1])^2 + (Sal
 ggplot(NBA_Stats1) + geom_point(aes(PPG, Salary)) + geom_point(data = centers, aes(PPG, Salary ,fill=""), color="black", size=4) + scale_fill_manual(name="cluster", values = "blue")+ ggtitle("Cluster data")
 ```
 
-<img src="Project_files/figure-gfm/unnamed-chunk-15-1.png" style="display: block; margin: auto;" />
-
+![image](https://user-images.githubusercontent.com/68762408/117606928-88601480-b120-11eb-82ce-29d07adc4970.png)
 #### This shows a kindof scatterplot that shows the distances the variables are between each other in a cluster format.
 
 ``` r
@@ -337,8 +334,7 @@ centers <- NBA_Stats2 %>%
 ggplot(NBA_Stats2) +     geom_point(aes(PPG, Salary, color = as.factor(cluster))) +     geom_point(data = centers, aes(PPG,Salary), color="black", size=4)+ ggtitle("Cluster data after one iteration")
 ```
 
-<img src="Project_files/figure-gfm/unnamed-chunk-16-1.png" style="display: block; margin: auto;" />
-
+![image](https://user-images.githubusercontent.com/68762408/117606937-8eee8c00-b120-11eb-9a3e-43386c4e841a.png)
 #### This is our first iteration of clustering our data
 
 ``` r
@@ -352,8 +348,7 @@ centers <- NBA_Stats3 %>%
      geom_point(data = centers, aes(PPG,Salary), color="black", size=4) + ggtitle("Cluster data after two iterations")
 ```
 
-<img src="Project_files/figure-gfm/unnamed-chunk-17-1.png" style="display: block; margin: auto;" />
-
+![image](https://user-images.githubusercontent.com/68762408/117606956-9746c700-b120-11eb-8ae8-5a47bcf69a37.png)
 #### This is our second, more accurate dipiction of our clustered data.
 
 ``` r
@@ -367,8 +362,7 @@ centers <- NBA_Stats4 %>%
      geom_point(data = centers, aes(PPG,Salary), color="black", size=4) + ggtitle("Cluster data after many iterations")
 ```
 
-<img src="Project_files/figure-gfm/unnamed-chunk-18-1.png" style="display: block; margin: auto;" />
-
+![image](https://user-images.githubusercontent.com/68762408/117606989-a9286a00-b120-11eb-82a0-7c666758f266.png)
 #### This is our clustered data after 100 iterations, therefore this is as accurate as the relationship is going to be.
 
 ------------------------------------------------------------------------
