@@ -65,7 +65,7 @@ NBA_Stats1 %>% select(`Team Name`, PPG) %>% pivot_longer(-1,names_to='DV', value
   xlab("Team Name") # Bar plot relating PPG and Team Name
 ```
 
-<img src="Project2_files/figure-gfm/unnamed-chunk-3-1.png" style="display: block; margin: auto;" />
+![image](https://user-images.githubusercontent.com/68762408/117608181-2a80fc00-b123-11eb-9419-d3bc2ccfda99.png)
 
 ``` r
 NBA_Stats1 %>% group_by(POS) %>% summarize(mean = mean(PPG))
@@ -91,7 +91,8 @@ NBA_Stats1 %>% select(POS, PPG) %>% pivot_longer(-1,names_to='DV', values_to='PP
   xlab("Position") # Bar plot relating PPG and Position
 ```
 
-<img src="Project2_files/figure-gfm/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+![image](https://user-images.githubusercontent.com/68762408/117608197-3240a080-b123-11eb-9104-ca392aff672b.png)
+
 
 #### This time, we observed points per game based on position played. To my surprise, the point guards were not at the top.
 
@@ -103,8 +104,7 @@ NBA_Stats1 %>% select(POS, PPG) %>% pivot_longer(-1,names_to='DV', values_to='PP
 ggplot(NBA_Stats1, aes(PPG, Salary)) + ggtitle("Correlation between salary and points per game by position") + xlab('Points per Game') + ylab("Salary")+geom_point(col = 'Blue')+geom_smooth(method= lm, aes(color=POS))
 ```
 
-<img src="Project2_files/figure-gfm/unnamed-chunk-5-1.png" style="display: block; margin: auto;" />
-
+![image](https://user-images.githubusercontent.com/68762408/117608211-3c629f00-b123-11eb-87d5-2ec40d042d68.png)
 ``` r
 # Correlation coefficient
 cor(NBA_Stats1$PPG, NBA_Stats1$Salary)
@@ -123,8 +123,7 @@ plot <- NBA_Stats1 %>% select_if(is.numeric)
 cor(plot, use = "pairwise.complete.obs")%>% as.data.frame %>% rownames_to_column %>% pivot_longer(-1, names_to = "other_var", values_to = "correlation") %>% ggplot(aes(rowname,other_var,fill = correlation)) +geom_tile()+scale_fill_gradient2(low = "blue", mid = "white", high = "yellow")+geom_text(aes(label=round(correlation,2)), color = "brown", size = 4) + labs(title = "Correlation matrix for NBA Statistics", x = "variable 1", y = "variable 2")
 ```
 
-<img src="Project2_files/figure-gfm/unnamed-chunk-6-1.png" style="display: block; margin: auto;" />
-
+![image](https://user-images.githubusercontent.com/68762408/117608231-471d3400-b123-11eb-93f1-1d84ceb08584.png)
 #### In this correlation matrix, we see the different correlations between the different variables in the dataset. My favorite coefficient is between Minutes per Game and Points per Game. I added the Minutes per Game column because this is another relationship I would like to keep an eye on. It would be cool to see which players score the most points with the least time on the court.
 
 ------------------------------------------------------------------------
@@ -186,8 +185,7 @@ summary(anova_NBA)
 ggplot(NBA_Stats1, aes(PPG, fill = POS)) + geom_histogram()+ facet_wrap(~POS) + theme(legend.position = "none") # Represent the distribution of PPG by Position. 
 ```
 
-<img src="Project2_files/figure-gfm/unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
-
+![image](https://user-images.githubusercontent.com/68762408/117608603-083bae00-b124-11eb-95d3-4445cf9dc949.png)
 ``` r
 # Calculate the mean difference between two conditions
 true_diff = NBA_Stats1 %>% group_by(POS) %>% summarise(means= mean(PPG)) %>% summarise(mean_diff = diff(means)) %>% 
@@ -214,8 +212,7 @@ for(i in 1:5000){
 {hist(mean_diff, main = "Distribution of the mean differences"); abline(v= mean(true_diff), col = "red")}
 ```
 
-<img src="Project2_files/figure-gfm/unnamed-chunk-9-2.png" style="display: block; margin: auto;" />
-
+![image](https://user-images.githubusercontent.com/68762408/117608637-18538d80-b124-11eb-8a69-6a46a087bd78.png)
 #### With this distribution, we see there is a normal pattern with the mean differences being just over one on average. This means there are not many (if any) outliers in our data.
 
 ------------------------------------------------------------------------
@@ -257,15 +254,13 @@ summary(fit)
 plot(fit, which = 1)
 ```
 
-<img src="Project2_files/figure-gfm/unnamed-chunk-10-1.png" style="display: block; margin: auto;" />
-
+![image](https://user-images.githubusercontent.com/68762408/117608672-27d2d680-b124-11eb-9832-0256682a95cb.png)
 ``` r
 # Q-Q plot to check for normality of the residuals
 plot(fit, which = 2)
 ```
 
-<img src="Project2_files/figure-gfm/unnamed-chunk-10-2.png" style="display: block; margin: auto;" />
-
+![image](https://user-images.githubusercontent.com/68762408/117608690-2d302100-b124-11eb-983d-d92658030f66.png)
 #### In this linear regression model, we see that using the standardized logPPG values shows that Position is not indicative of points per game. The appropriate assumptions have been checked.
 
 ------------------------------------------------------------------------
@@ -380,8 +375,8 @@ ROC %>%
   geom_vline(xintercept = c(.1,.5,.9), lty = 2, color = "gray50") +
   labs(title= "Relationship between sensitivity and specificity")
 ```
+![image](https://user-images.githubusercontent.com/68762408/117608780-6072b000-b124-11eb-91f4-bba50c893e67.png)
 
-<img src="Project2_files/figure-gfm/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
 
 ``` r
 ROC$TPR = sensitivity
@@ -393,7 +388,7 @@ ROC %>%
   geom_segment(aes(x=0, y=0, xend = 1, yend = 1), lty = 2) + scale_x_continuous(limits = c(0,1))
 ```
 
-<img src="Project2_files/figure-gfm/unnamed-chunk-12-2.png" style="display: block; margin: auto;" />
+![image](https://user-images.githubusercontent.com/68762408/117608743-4c2eb300-b124-11eb-814b-6127fb1c306f.png)
 
 ``` r
 library(plotROC)
@@ -402,8 +397,7 @@ ROCplot = ggplot(NBA_Stats1) + geom_roc(aes(d = y, m = prob1), cutoffs.at = list
 ROCplot
 ```
 
-<img src="Project2_files/figure-gfm/unnamed-chunk-13-1.png" style="display: block; margin: auto;" />
-
+![image](https://user-images.githubusercontent.com/68762408/117608759-551f8480-b124-11eb-95cc-b1dd291ae889.png)
 ``` r
 calc_auc(ROCplot)
 ```
